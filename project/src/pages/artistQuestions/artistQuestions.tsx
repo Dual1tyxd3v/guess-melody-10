@@ -6,11 +6,12 @@ import { UserArtisQuestionAnswer, QuestionArtist } from '../../types/question';
 type ArtistQuestionsProps = {
   question: QuestionArtist;
   onAnswer: (question: QuestionArtist, answer: UserArtisQuestionAnswer) => void;
+  renderPlayer: (src: string, playerIndex: number) => JSX.Element;
 }
 
 function ArtistQuestions(props: ArtistQuestionsProps): JSX.Element {
   // получаем вопрос из пропсов
-  const {question, onAnswer} = props;
+  const {question, onAnswer, renderPlayer} = props;
   const {answers, song} = question;
 
   return (
@@ -35,10 +36,9 @@ function ArtistQuestions(props: ArtistQuestionsProps): JSX.Element {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <button className="track__button track__button--play" type="button"></button>
-            <div className="track__status">
-              <audio src={song.src}></audio> {/* используем путь трека из вопроса */}
-            </div>
+            {
+              renderPlayer(song.src, 0)
+            }
           </div>
         </div>
 

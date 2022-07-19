@@ -3,7 +3,11 @@ import { Navigate } from 'react-router-dom';
 import { AppRoute, GameType, FIRST_GAME_STEP } from '../../const';
 import ArtistQuestions from '../artistQuestions/artistQuestions';
 import GenreQuestions from '../genreQuestions/genreQuestions';
+import withAudioPlayer from '../../hocs/withAudioPlayer/withAudioPlayer';
 import { QuestionArtist, QuestionGenre, Questions } from '../../types/question';
+
+const ArtistQuestionsWrapped = withAudioPlayer(ArtistQuestions);
+const GenreQuestionsWrapped = withAudioPlayer(GenreQuestions);
 
 type GameScreenProps = {
   questions: Questions;
@@ -25,7 +29,7 @@ function GameScreen({questions}: GameScreenProps): JSX.Element {
   switch (question.type) {
     case GameType.Artist:
       return (
-        <ArtistQuestions
+        <ArtistQuestionsWrapped
           key={step} //уникальный идентификатор
           question={question as QuestionArtist}
           onAnswer={() => setStep((prev) => prev + 1)}
@@ -33,7 +37,7 @@ function GameScreen({questions}: GameScreenProps): JSX.Element {
       );
     case GameType.Genre:
       return (
-        <GenreQuestions
+        <GenreQuestionsWrapped
           key={step}
           question={question as QuestionGenre}
           onAnswer={() => setStep((prev) => prev + 1)}

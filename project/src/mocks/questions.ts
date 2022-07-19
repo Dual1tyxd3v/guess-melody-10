@@ -9,7 +9,7 @@ export const questions: Questions = [
     type: 'genre',
     genre: 'rock',
     answers: [{
-      src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg',
+      src: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Slayer_Jihad.ogg',
       genre: 'rock',
     }, {
       src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg',
@@ -25,7 +25,7 @@ export const questions: Questions = [
     type: 'artist',
     song: {
       artist: 'Jim Beam',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg',
+      src: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Slayer_Jihad.ogg',
     },
     answers: [{
       picture: `${AVATAR_URL}?rnd=${Math.random()}`,
