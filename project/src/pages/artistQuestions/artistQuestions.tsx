@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Logo from '../../components/logo/logo';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, PropsWithChildren } from 'react';
 import { UserArtisQuestionAnswer, QuestionArtist } from '../../types/question';
 
-type ArtistQuestionsProps = {
+type ArtistQuestionsProps = PropsWithChildren<{
   question: QuestionArtist;
   onAnswer: (question: QuestionArtist, answer: UserArtisQuestionAnswer) => void;
   renderPlayer: (src: string, playerIndex: number) => JSX.Element;
-}
+}>
 
 function ArtistQuestions(props: ArtistQuestionsProps): JSX.Element {
   // получаем вопрос из пропсов
-  const {question, onAnswer, renderPlayer} = props;
+  const {question, onAnswer, renderPlayer, children} = props;
   const {answers, song} = question;
 
   return (
@@ -25,11 +25,8 @@ function ArtistQuestions(props: ArtistQuestionsProps): JSX.Element {
           />
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
+
       </header>
 
       <section className="game__screen">

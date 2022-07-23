@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { questions } from './mocks/questions';
-
-const settings = {
-  ERRORS_COUNT: 13,
-};
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -13,9 +10,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      errorsCount = {settings.ERRORS_COUNT}
-      questions={questions}
-    />
+    {/* устанавливаем глобальный store */}
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );

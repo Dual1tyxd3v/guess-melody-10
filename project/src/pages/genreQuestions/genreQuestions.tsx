@@ -1,15 +1,15 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, PropsWithChildren } from 'react';
 import Logo from '../../components/logo/logo';
 import { QuestionGenre, UserGenreQuestionAnswer } from '../../types/question';
 
-type GenreQuestionsProps = {
+type GenreQuestionsProps = PropsWithChildren<{
   question: QuestionGenre;
   onAnswer: (question: QuestionGenre, answers: UserGenreQuestionAnswer) => void;
   renderPlayer: (src: string, playerIndex: number) => JSX.Element;
-}
+}>
 
 function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
-  const {question, onAnswer, renderPlayer} = props;
+  const {question, onAnswer, renderPlayer, children} = props;
   const {answers, genre} = question;
   // устанавливаем состояние с массивом ответов
   const [userAnswers, setUserAnswers] = useState([false, false, false, false]);
@@ -25,11 +25,8 @@ function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
           />
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
+
       </header>
 
       <section className="game__screen">

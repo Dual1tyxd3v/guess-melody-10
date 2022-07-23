@@ -7,7 +7,7 @@ export type GenreAnswer = {
 export type QuestionGenre = {
   answers: GenreAnswer[];
   genre: string;
-  type: string;
+  type: 'genre';
 };
 //
 // описание типа вопроса по артисту
@@ -23,7 +23,7 @@ export type Song = {
 
 export type QuestionArtist = {
   answers: ArtistAnswer[];
-  type: string;
+  type: 'artist';
   song: Song;
 }
 //
@@ -39,3 +39,5 @@ export type UserGenreQuestionAnswer = readonly boolean[];
 
 // тип ответа по артисту
 export type UserArtisQuestionAnswer = string;
+
+export type UserAnswer = UserArtisQuestionAnswer | UserGenreQuestionAnswer;
