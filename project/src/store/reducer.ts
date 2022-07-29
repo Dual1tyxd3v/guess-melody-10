@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FIRST_GAME_STEP } from '../const';
-import { incrementStep, resetGame, checkUserAnswer } from './action';
+import { incrementStep, resetGame, checkUserAnswer, loadQuestions } from './action';
 import { isAnswerCorrect } from '../game';
 import { questions } from '../mocks/questions';
 // значение шага
@@ -26,6 +26,8 @@ const reducer = createReducer(initialState, (builder) => {
       const {question, answer} = action.payload;
       // получаем булево значение, инвертируем его и увеличиваем свойство стейта на ответ привиденный к числу
       state.mistakes += Number(!isAnswerCorrect(question, answer));
+    }).addCase(loadQuestions, (state, action) => {
+      state.questions = action.payload;
     });
 });
 
