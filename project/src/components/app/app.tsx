@@ -1,5 +1,5 @@
 import Welcome from '../../pages/welcome/welcome';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from '../../pages/login/login';
 import GameOver from '../../pages/gameOver/gameOver';
 import WinScreen from '../../pages/winScreen/winScreen';
@@ -10,6 +10,8 @@ import GameScreen from '../../pages/game-screen/game-screen';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../loadingScreen/loadingScreen';
 import { isCheckedAuth } from '../../game';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const {authorizationStatus, isDataLoading} = useAppSelector((state) => state);
@@ -19,7 +21,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Root} element={<Welcome errorsCount={MAX_MISTAKE_COUNT}/>} />
         <Route path={AppRoute.Login} element={<Login />} />
@@ -33,7 +35,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Game} element={<GameScreen />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 export default App;
