@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FIRST_GAME_STEP, AuthorizationStatus } from '../const';
-import { incrementStep, resetGame, checkUserAnswer, loadQuestions, requireAuthorization, setError } from './action';
+import { incrementStep, resetGame, checkUserAnswer, loadQuestions, requireAuthorization, setError, setDataLoadedStatus } from './action';
 import { isAnswerCorrect } from '../game';
 import { Questions } from '../types/question';
 // значение шага
@@ -12,6 +12,7 @@ type InitialState = {
   questions: Questions,
   authorizationStatus: AuthorizationStatus,
   error: string | null,
+  isDataLoading: boolean
 };
 // начальное состояние стора
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   questions: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  isDataLoading: false,
 };
 // создаем редюсер и прикручиваем к нему наши action
 const reducer = createReducer(initialState, (builder) => {
@@ -42,6 +44,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = action.payload;
     }).addCase(setError, (state, action) => {
       state.error = action.payload;
+    }).addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoading = action.payload;
     });
 });
 

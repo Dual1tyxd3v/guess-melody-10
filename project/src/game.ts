@@ -1,5 +1,5 @@
 import { Question, QuestionArtist, QuestionGenre, UserAnswer, UserArtisQuestionAnswer, UserGenreQuestionAnswer } from './types/question';
-import { GameType } from './const';
+import { GameType, AuthorizationStatus } from './const';
 
 export const isAnswerCorrect = (question: Question, answer: UserAnswer): boolean => {
   if (question.type === GameType.Artist && typeof answer === 'string') {
@@ -19,3 +19,6 @@ export const isAnswerArtistCorrect = (question: QuestionArtist, answer: UserArti
 export const isAnswerGenreCorrect = (question: QuestionGenre, answer: UserGenreQuestionAnswer): boolean =>
   answer.every((answerItem, i) =>
     answerItem === (question.answers[i].genre === question.genre) );
+
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;

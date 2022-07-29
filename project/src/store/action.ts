@@ -13,3 +13,5 @@ export const loadQuestions = createAction<Questions>('data/loadQuestions');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setError = createAction<string | null>('game/setError');
+
+export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
