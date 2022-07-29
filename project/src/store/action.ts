@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Question, UserAnswer, Questions } from '../types/question';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, AppRoute } from '../const';
 // создание экшенов увеличение шага
 export const incrementStep = createAction('game/incrementStep');
 // сброс игры
@@ -15,3 +15,5 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setError = createAction<string | null>('game/setError');
 
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
+
+export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
