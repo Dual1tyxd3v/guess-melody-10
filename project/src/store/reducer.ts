@@ -2,14 +2,21 @@ import { createReducer } from '@reduxjs/toolkit';
 import { FIRST_GAME_STEP, AuthorizationStatus } from '../const';
 import { incrementStep, resetGame, checkUserAnswer, loadQuestions, requireAuthorization } from './action';
 import { isAnswerCorrect } from '../game';
-import { questions } from '../mocks/questions';
+import { Questions } from '../types/question';
 // значение шага
 const STEP_COUNT = 1;
+
+type InitialState = {
+  mistakes: number,
+  step: number,
+  question: Questions,
+  authorizationStatus: AuthorizationStatus
+};
 // начальное состояние стора
-const initialState = {
+const initialState: InitialState = {
   mistakes: 0,
   step: FIRST_GAME_STEP,
-  questions,
+  questions: [],
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 // создаем редюсер и прикручиваем к нему наши action
