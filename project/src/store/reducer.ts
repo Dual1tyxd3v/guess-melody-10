@@ -9,7 +9,7 @@ const STEP_COUNT = 1;
 type InitialState = {
   mistakes: number,
   step: number,
-  question: Questions,
+  questions: Questions,
   authorizationStatus: AuthorizationStatus,
   error: string | null,
 };

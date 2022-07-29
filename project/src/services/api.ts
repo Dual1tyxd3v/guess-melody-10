@@ -1,5 +1,15 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './token';
+import { processErrorHandler } from './process-error-handler';
+import {StatusCodes} from 'http-status-codes';
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true,
+};
+
+const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 const BACKEND_URL = 'https://10.react.pages.academy/guess-melody';
 const REQUEST_TIMEOUT = 5000;
@@ -20,6 +30,14 @@ export const createAPI = (): AxiosInstance => {
     return config;
   }
   );
+
+  api.interceptors.response.use((response) => response, (error: AxiosError) => {
+    if (error.response && shouldDisplayError(error.response)) {
+      processErrorHandler(error.response.data.error);
+    }
+
+    throw error;
+  });
 
   return api;
 };
