@@ -20,7 +20,7 @@ function GameScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   // если вопросов больше нет переходим на главную страницу
   if (step >= questions.length || !questions) {
-    return <Navigate to={AppRoute.Root} />;
+    return <Navigate to={AppRoute.Result} />;
   }
 
   if (mistakes >= MAX_MISTAKE_COUNT) {
