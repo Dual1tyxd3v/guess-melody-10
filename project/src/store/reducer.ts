@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { FIRST_GAME_STEP } from '../const';
-import { incrementStep, resetGame, checkUserAnswer, loadQuestions } from './action';
+import { FIRST_GAME_STEP, AuthorizationStatus } from '../const';
+import { incrementStep, resetGame, checkUserAnswer, loadQuestions, requireAuthorization } from './action';
 import { isAnswerCorrect } from '../game';
 import { questions } from '../mocks/questions';
 // значение шага
@@ -10,6 +10,7 @@ const initialState = {
   mistakes: 0,
   step: FIRST_GAME_STEP,
   questions,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 // создаем редюсер и прикручиваем к нему наши action
 const reducer = createReducer(initialState, (builder) => {
@@ -28,6 +29,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.mistakes += Number(!isAnswerCorrect(question, answer));
     }).addCase(loadQuestions, (state, action) => {
       state.questions = action.payload;
+    }).addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
