@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { resetGame } from '../../store/action';
+import { logoutAction } from '../../store/api-actions';
 
 function WinScreen(): JSX.Element {
   const navigate = useNavigate();
@@ -13,7 +14,14 @@ function WinScreen(): JSX.Element {
   return (
     <section className="result">
       <div className="result-logout__wrapper">
-        <Link className="result-logout__link" to="/">Выход</Link>
+        <Link className="result-logout__link" to="/"
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch(logoutAction());
+          }}
+        >
+          Выход
+        </Link>
       </div>
       <div className="result__logo"><img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" /></div>
       <h2 className="result__title">Вы настоящий меломан!</h2>
