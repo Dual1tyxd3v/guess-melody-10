@@ -1,16 +1,21 @@
 import { useRef, FormEvent } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { loginAction } from '../../store/api-actions';
 
 function Login(): JSX.Element{
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passRef = useRef<HTMLInputElement | null>(null);
+  const {authorizationStatus} = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Game}/>;
+  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
