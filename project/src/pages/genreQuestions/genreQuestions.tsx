@@ -41,7 +41,7 @@ function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
         >
           {
             answers.map((answer, id) => {
-              const keyValue = `genreItem_${id}`;
+              const keyValue = `${answer}_${id}`;
               return <GenreQuestionItem key={keyValue} userAnswer={userAnswers[id]} renderPlayer={renderPlayer} id={id} answer={answer} onChange={handleAnswersChange} />;
             }
             // создаем уникальный ID по номеру итератора + ссылки
