@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useAppDispatch} from '../../hooks';
-import {resetGame} from '../../store/action';
+import {resetGame} from '../../store/gameProcess/gameProcess';
 
 
 type WelcomeProps = {

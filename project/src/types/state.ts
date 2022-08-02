@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from '../const';
-import { store } from '../store';
+import { store } from '../store/index';
 import { Questions } from './question';
 
 export type State = ReturnType<typeof store.getState>;

@@ -12,9 +12,12 @@ import LoadingScreen from '../loadingScreen/loadingScreen';
 import { isCheckedAuth } from '../../game';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors';
+import { getLoadedDataStatus } from '../../store/gameData/selectors';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoading} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoading = useAppSelector(getLoadedDataStatus);
 
   if (isCheckedAuth(authorizationStatus) || isDataLoading) {
     return <LoadingScreen />;

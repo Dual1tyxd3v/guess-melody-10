@@ -12,7 +12,7 @@ const initialState: GameProcessType = {
 
 export const gameProcess = createSlice({
   name: NameSpace.Game,
-  initialState,
+  initialState: initialState,
   reducers: {
     incrementStep: (state) => {
       state.step = state.step + STEP_COUNT;
@@ -28,3 +28,5 @@ export const gameProcess = createSlice({
     }
   },
 });
+
+export const {resetGame, checkUserAnswer, incrementStep} = gameProcess.actions;

@@ -31,10 +31,8 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export const TIMEOUT_SHOW_ERROR = 3000;
-
-export const NameSpace = {
-  Data: 'DATA',
-  User: 'USER',
-  Game: 'GAME',
-};
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Game = 'GAME',
+}

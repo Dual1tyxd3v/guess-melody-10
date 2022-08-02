@@ -1,18 +1,22 @@
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { Navigate } from 'react-router-dom';
-import { incrementStep, checkUserAnswer } from '../../store/action';
+import { incrementStep, checkUserAnswer } from '../../store/gameProcess/gameProcess';
 import { AppRoute, GameType, MAX_MISTAKE_COUNT} from '../../const';
 import ArtistQuestions from '../artistQuestions/artistQuestions';
 import GenreQuestions from '../genreQuestions/genreQuestions';
 import withAudioPlayer from '../../hocs/withAudioPlayer/withAudioPlayer';
 import { QuestionArtist, QuestionGenre, Question, UserAnswer } from '../../types/question';
 import Mistakes from '../../components/mistakes/mistakes';
+import { getMistakes, getStep } from '../../store/gameProcess/selectors';
+import { getQuestions } from '../../store/gameData/selectors';
 
 const ArtistQuestionsWrapped = withAudioPlayer(ArtistQuestions);
 const GenreQuestionsWrapped = withAudioPlayer(GenreQuestions);
 
 function GameScreen(): JSX.Element {
-  const {step, mistakes, questions} = useAppSelector((state) => state);
+  const step = useAppSelector(getStep);
+  const questions = useAppSelector(getQuestions);
+  const mistakes = useAppSelector(getMistakes);
 
   // получаем данные с вопросом по индексу шага (по сути просто идекс массива вопросов)
   const question = questions[step];

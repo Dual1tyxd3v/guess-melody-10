@@ -2,12 +2,11 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { Questions } from '../types/question';
-import { APIRoute, TIMEOUT_SHOW_ERROR, AppRoute } from '../const';
-import { redirectToRoute, setError } from './action';
+import { APIRoute, AppRoute } from '../const';
+import { redirectToRoute, } from './action';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
-import { store } from '.';
 
 export const fetchQuestionAction = createAsyncThunk<Questions, undefined, {
   dispatch: AppDispatch, state: State, extra: AxiosInstance
@@ -46,16 +45,5 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-  },
-);
-
-export const clearErrorAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch, state: State, extra: AxiosInstance
-}>(
-  'game/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR);
   },
 );
