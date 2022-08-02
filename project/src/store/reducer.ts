@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { FIRST_GAME_STEP, AuthorizationStatus } from '../const';
-import { incrementStep, resetGame, checkUserAnswer, loadQuestions, requireAuthorization, setError, setDataLoadedStatus } from './action';
+import { FIRST_GAME_STEP } from '../const';
+import { incrementStep, resetGame, checkUserAnswer, loadQuestions, setError, setDataLoadedStatus } from './action';
 import { isAnswerCorrect } from '../game';
 import { Questions } from '../types/question';
 // значение шага
@@ -10,7 +10,6 @@ type InitialState = {
   mistakes: number,
   step: number,
   questions: Questions,
-  authorizationStatus: AuthorizationStatus,
   error: string | null,
   isDataLoading: boolean
 };
@@ -19,7 +18,6 @@ const initialState: InitialState = {
   mistakes: 0,
   step: FIRST_GAME_STEP,
   questions: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isDataLoading: false,
 };
@@ -40,8 +38,6 @@ const reducer = createReducer(initialState, (builder) => {
       state.mistakes += Number(!isAnswerCorrect(question, answer));
     }).addCase(loadQuestions, (state, action) => {
       state.questions = action.payload;
-    }).addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     }).addCase(setError, (state, action) => {
       state.error = action.payload;
     }).addCase(setDataLoadedStatus, (state, action) => {
