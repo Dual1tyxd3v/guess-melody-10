@@ -8,11 +8,11 @@ export const useUserAnswers = (question: QuestionGenre): ResultUserAnswers => {
 
   const [answers, setAnswers] = useState(Array.from({length: answersCount}, () => false));
 
-  const handleUserAnswers = (id: number, value: boolean) => {
+  const handleAnswersChange = (id: number, value: boolean) => {
     const userAnswers = answers.slice();
     userAnswers[id] = value;
     setAnswers(userAnswers);
   };
 
-  return [answers, handleUserAnswers];
+  return [answers, handleAnswersChange];
 };

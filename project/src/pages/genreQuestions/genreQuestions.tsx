@@ -1,5 +1,6 @@
-import { useState, ChangeEvent, FormEvent, PropsWithChildren } from 'react';
+import { ChangeEvent, FormEvent, PropsWithChildren } from 'react';
 import Logo from '../../components/logo/logo';
+import { useUserAnswers } from '../../hooks/use-user-answers';
 import { QuestionGenre, UserGenreQuestionAnswer } from '../../types/question';
 
 type GenreQuestionsProps = PropsWithChildren<{
@@ -12,7 +13,7 @@ function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
   const {question, onAnswer, renderPlayer, children} = props;
   const {answers, genre} = question;
   // устанавливаем состояние с массивом ответов
-  const [userAnswers, setUserAnswers] = useState([false, false, false, false]);
+  const [userAnswers, handleAnswersChange] = useUserAnswers(question);
 
   return (
     <section className="game game--genre">
@@ -37,28 +38,30 @@ function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
             onAnswer(question, userAnswers);
           }}
         >
-          {answers.map((answer, id) => {
+          {
+            answers.map((answer, id) => {
             // создаем уникальный ID по номеру итератора + ссылки
-            const keyValue = `${id}-${answer.src}`;
-            return (
-              <div key={keyValue} className="track">
-                {
-                  renderPlayer(answer.src, id)
-                }
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${id}`} id={`answer-${id}`}
-                    checked={userAnswers[id]}
-                    // при изменении инпута меняем состояние с ответом
-                    onChange={({target}: ChangeEvent<HTMLInputElement>) => {
-                      const value = target.checked;
-                      setUserAnswers([...userAnswers.slice(0, id), value, ...userAnswers.slice(id + 1)]);
-                    }}
-                  />
-                  <label className="game__check" htmlFor={`answer-${id}`}>Отметить</label>
+              const keyValue = `${id}-${answer.src}`;
+              return (
+                <div key={keyValue} className="track">
+                  {
+                    renderPlayer(answer.src, id)
+                  }
+                  <div className="game__answer">
+                    <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${id}`} id={`answer-${id}`}
+                      checked={userAnswers[id]}
+                      // при изменении инпута меняем состояние с ответом
+                      onChange={({target}: ChangeEvent<HTMLInputElement>) => {
+                        const value = target.checked;
+                        handleAnswersChange(id, value);
+                      }}
+                    />
+                    <label className="game__check" htmlFor={`answer-${id}`}>Отметить</label>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          }
           <button className="game__submit button" type="submit">Ответить</button>
         </form>
       </section>
