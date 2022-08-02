@@ -1,7 +1,6 @@
-import { FormEvent, PropsWithChildren } from 'react';
-import GenreQuestionItem from '../../components/genreQuestionItem/genreQuestionItem';
+import { PropsWithChildren } from 'react';
+import GenreQuestionList from '../../components/genreQuestionList/genreQuestionList';
 import Logo from '../../components/logo/logo';
-import { useUserAnswers } from '../../hooks/use-user-answers';
 import { QuestionGenre, UserGenreQuestionAnswer } from '../../types/question';
 
 type GenreQuestionsProps = PropsWithChildren<{
@@ -12,9 +11,7 @@ type GenreQuestionsProps = PropsWithChildren<{
 
 function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
   const {question, onAnswer, renderPlayer, children} = props;
-  const {answers, genre} = question;
-  // устанавливаем состояние с массивом ответов
-  const [userAnswers, handleAnswersChange] = useUserAnswers(question);
+  const {genre} = question;
 
   return (
     <section className="game game--genre">
@@ -33,22 +30,7 @@ function GenreQuestions(props: GenreQuestionsProps): JSX.Element {
 
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
-        <form className="game__tracks"
-          onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-            evt.preventDefault();
-            onAnswer(question, userAnswers);
-          }}
-        >
-          {
-            answers.map((answer, id) => {
-              const keyValue = `${answer}_${id}`;
-              return <GenreQuestionItem key={keyValue} userAnswer={userAnswers[id]} renderPlayer={renderPlayer} id={id} answer={answer} onChange={handleAnswersChange} />;
-            }
-            // создаем уникальный ID по номеру итератора + ссылки
-            )
-          }
-          <button className="game__submit button" type="submit">Ответить</button>
-        </form>
+        <GenreQuestionList onAnswer={onAnswer} question={question} renderPlayer={renderPlayer} />
       </section>
     </section>
   );
