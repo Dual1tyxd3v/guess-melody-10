@@ -1,22 +1,16 @@
 import { useRef, FormEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { loginAction } from '../../store/api-actions';
-import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 
 function Login(): JSX.Element{
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passRef = useRef<HTMLInputElement | null>(null);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    return <Navigate to={AppRoute.Game}/>;
-  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -47,11 +41,11 @@ function Login(): JSX.Element{
       >
         <p className="login__field">
           <label className="login__label" htmlFor="name">Логин</label>
-          <input className="login__input" type="text" name="name" id="name" ref={loginRef} />
+          <input className="login__input" type="text" name="name" id="name" ref={loginRef} data-testid="login"/>
         </p>
         <p className="login__field">
           <label className="login__label" htmlFor="password">Пароль</label>
-          <input className="login__input" type="text" name="password" id="password" ref={passRef} />
+          <input className="login__input" type="text" name="password" id="password" ref={passRef} data-testid="password"/>
           <span className="login__error">Неверный пароль</span>
         </p>
         <button className="login__button button" type="submit">Войти</button>
