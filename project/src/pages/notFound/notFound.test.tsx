@@ -15,7 +15,6 @@ describe('Component NotFound', () => {
 
     const headerElement = screen.getByText('404. Page not found');
     const linkElement = screen.getByText('Вернуться на главную');
-
     expect(headerElement).toBeInTheDocument();
     expect(linkElement).toBeInTheDocument();
   });

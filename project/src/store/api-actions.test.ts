@@ -35,6 +35,7 @@ describe('Async actions', () => {
     ]);
   });
 
+
   it('should dispatch requiredAuthorization and redirectToRoute when post /login', async () => {
     const fakeUser: AuthData = {login: 'test@test.ru', password: '123456'};
 

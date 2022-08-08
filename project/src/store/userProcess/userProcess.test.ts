@@ -20,11 +20,11 @@ describe('Reducer: userProcess', () => {
       expect(userProcess.reducer(state, {type: checkAuthAction.fulfilled.type}))
         .toEqual({authorizationStatus: AuthorizationStatus.Auth});
     });
-  });
 
-  it('should update authStatus to "NO_AUTH" if chekAuthorization rejected', () => {
-    expect(userProcess.reducer(state, {type: checkAuthAction.rejected.type}))
-      .toEqual({authorizationStatus: AuthorizationStatus.NoAuth});
+    it('should update authStatus to "NO_AUTH" if chekAuthorization rejected', () => {
+      expect(userProcess.reducer(state, {type: checkAuthAction.rejected.type}))
+        .toEqual({authorizationStatus: AuthorizationStatus.NoAuth});
+    });
   });
 
   describe('loginAction test', () => {

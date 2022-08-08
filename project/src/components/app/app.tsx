@@ -10,8 +10,6 @@ import GameScreen from '../../pages/game-screen/game-screen';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../loadingScreen/loadingScreen';
 import { isCheckedAuth } from '../../game';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import { getLoadedDataStatus } from '../../store/gameData/selectors';
 
@@ -24,21 +22,19 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Root} element={<Welcome errorsCount={MAX_MISTAKE_COUNT}/>} />
-        <Route path={AppRoute.Login} element={<Login />} />
-        <Route path={AppRoute.Result} element={
-          <PrivateRoute authStatus={authorizationStatus}>
-            <WinScreen />
-          </PrivateRoute>
-        }
-        />
-        <Route path={AppRoute.Lose} element={<GameOver />} />
-        <Route path={AppRoute.Game} element={<GameScreen />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route path={AppRoute.Root} element={<Welcome errorsCount={MAX_MISTAKE_COUNT}/>} />
+      <Route path={AppRoute.Login} element={<Login />} />
+      <Route path={AppRoute.Result} element={
+        <PrivateRoute authStatus={authorizationStatus}>
+          <WinScreen />
+        </PrivateRoute>
+      }
+      />
+      <Route path={AppRoute.Lose} element={<GameOver />} />
+      <Route path={AppRoute.Game} element={<GameScreen />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 export default App;
